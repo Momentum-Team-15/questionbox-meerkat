@@ -9,7 +9,7 @@ class User(AbstractUser):
     bio = models.TextField(blank=True)
 
     def __str__(self):
-        return f"{self.bio}"
+        return f"{self.username}"
 
 class Question(models.Model):
     title = models.CharField(max_length=50)
