@@ -22,6 +22,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
     answer = models.TextField()
+    created_date = models.DateTimeField(auto_now_add=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='answers')
 
