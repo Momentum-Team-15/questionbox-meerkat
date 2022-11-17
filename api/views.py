@@ -8,9 +8,10 @@ from rest_framework.permissions import AllowAny
 # Create your views here.
 # For endpoints
 
+
 class QuestionViewSet(ModelViewSet):
-    queryset          = Question.objects.all()
-    serializer_class  = QuestionSerializer
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
 
     def get_queryset(self):
         search_term = self.request.query_params.get("search")
@@ -22,13 +23,11 @@ class QuestionViewSet(ModelViewSet):
             )
         return results
 
-      
-
     def perform_destroy(self, instance):
-        if self.request.user  == instance.user:
+        if self.request.user == instance.user:
             instance.delete()
 
-    def perform_update(self,serializer):
+    def perform_update(self, serializer):
         if self.request.user == serializer.instance.user:
             serializer.save()
 
@@ -37,4 +36,3 @@ class AnswerViewSet(ModelViewSet):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
     permission_classes = [AllowAny]
-

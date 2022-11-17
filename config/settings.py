@@ -147,10 +147,10 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-STATIC_ROOT = BASE_DIR / "staticfiles" # <-- add this
+STATIC_ROOT = BASE_DIR / "staticfiles"  # <-- add this
 
 # add the following lines
-if not DEBUG: 
+if not DEBUG:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
