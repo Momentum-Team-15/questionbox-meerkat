@@ -1,5 +1,5 @@
 from rest_framework import serializers 
-from .models import Question
+from .models import Question, Answer
 
 class QuestionSerializer(serializers.ModelSerializer):
      user        = serializers.SlugRelatedField(read_only=True, slug_field="username")
@@ -7,3 +7,9 @@ class QuestionSerializer(serializers.ModelSerializer):
      class Meta:
         model    = Question
         fields   = ['pk', 'title', 'created_date', 'question', 'user', 'total_answers' ]
+
+
+class AnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Answer
+        fields = ['__all__']

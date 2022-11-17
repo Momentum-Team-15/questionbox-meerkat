@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from api.models import Question
-from api.serializers import QuestionSerializer
+from api.models import Question, Answer
+from api.serializers import QuestionSerializer, AnswerSerializer
 from rest_framework.viewsets import ModelViewSet
 from django.db.models import Count
+from rest_framework.permissions import AllowAny
 
 # Create your views here.
 # For endpoints
+
 class QuestionViewSet(ModelViewSet):
     queryset          = Question.objects.all()
     serializer_class  = QuestionSerializer
@@ -29,3 +31,10 @@ class QuestionViewSet(ModelViewSet):
     def perform_update(self,serializer):
         if self.request.user == serializer.instance.user:
             serializer.save()
+
+
+class AnswerViewSet(ModelViewSet):
+    queryset = Answer.objects.all()
+    serializer_class = AnswerSerializer
+    permission_classes = [AllowAny]
+
