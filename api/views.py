@@ -4,6 +4,7 @@ from api.serializers import QuestionSerializer, AnswerSerializer
 from rest_framework.viewsets import ModelViewSet
 from django.db.models import Count
 from rest_framework.permissions import AllowAny
+from rest_framework.generics import ListCreateAPIView, get_object_or_404
 
 # Create your views here.
 # For endpoints
@@ -42,7 +43,17 @@ class QuestionViewSet(ModelViewSet):
             serializer.save()
 
 
-class AnswerViewSet(ModelViewSet):
+# answer create view
+# answer detail view 
+# next week- user needs to be able to "accept" an answer - boolean field
+
+# This is where the view starts for endpoint to create and list all answers 
+class AnswerListCreateView(ListCreateAPIView):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
-    permission_classes = [AllowAny]
+# This is where we are changing the perform / create function within this API view 
+    def perform_create(self, serializer):
+        # This is where we are defining what a question is, also making sure the answer is saved to the right user and question
+        # 
+        question = get_object_or_404(Question, pk=self.kwargs["question_pk"])
+        serializer.save(user=self.request.user, question=question)
