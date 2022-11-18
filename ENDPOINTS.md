@@ -172,7 +172,7 @@ PATCH api/questions/<pk>
 {
 	
 	"title": "bird",
-	"question": "test teat test question 4"
+	
 }
 ```
 ### Response
