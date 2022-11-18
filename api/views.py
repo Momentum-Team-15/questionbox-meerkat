@@ -22,7 +22,8 @@ class QuestionViewSet(ModelViewSet):
             )
         return results
 
-      
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)      
 
     def perform_destroy(self, instance):
         if self.request.user  == instance.user:
