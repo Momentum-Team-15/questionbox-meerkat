@@ -15,10 +15,10 @@ NOTE: API Root is /api/
 |POST|[/auth/users/me/](#users-info)|User's info|
 |GET|[/users](#all_users)|List of all users|
 |POST|[/auth/token/logout/](#logout-user)|Logout user|
-|GET|[api/questions/<pk>](#details-of-one-question)|details of one question|
+|GET|[api/questions/{pk}](#details-of-one-question)|details of one question|
 |POST|[api/questions/](#create-a-question)|create a question|
-|PATCH|[api/questions/<pk>](#update-a-question)|update a question|
-|DELETE|[api/questions/<pk>](#delete-a-question)|delete a question|
+|PATCH|[api/questions/{pk}](#update-a-question)|update a question|
+|DELETE|[api/questions/{pk}](#delete-a-question)|delete a question|
 |GET|[api/questions?search=<search_term>](#search-questions)|search questions|
 ## Create a new user
 ### Request
