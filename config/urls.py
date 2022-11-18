@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api import views
+from api import views as api_views
 from api.router import router
 
 urlpatterns = [
@@ -24,6 +24,6 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
 
-    path('api/', include(router.urls)), 
-    path('api/questions/<int:question_pk>/answers/', include(router.urls)),
+    path('api/', include(router.urls)),
+    path('api/questions/<int:question_pk>/answers/', api_views.AnswerListCreateView.as_view(), name="answers"),
 ]
