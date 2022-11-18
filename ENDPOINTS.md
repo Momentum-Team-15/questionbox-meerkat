@@ -21,6 +21,8 @@ NOTE: API Root is /api/
 |PATCH|[api/questions/{pk}](#update-a-question)|update a question|
 |DELETE|[api/questions/{pk}](#delete-a-question)|delete a question|
 |GET|[api/questions?search=<search_term>](#search-questions)|search questions|
+|GET|[api/questions/<int:question_pk>/answers/](#list-answers-per-question)|list answers per question|
+|POST|[api/questions/<int:question_pk>/answers/](#create-answer)|create answer|
 ## Create a new user
 ### Request
 Required fields: username and password
@@ -222,7 +224,49 @@ GET api/questions?search=dog
 ]
 ```
 
+## list answers per question
+list answers per question
+### Request
+Required fields:none
+```json
+GET api/questions/<int:question_pk>/answers/
+```
+### Response
+```json
+200 OK
+[
+	{
+		"pk": 2,
+		"answer": "most likely",
+		"user": "user1",
+		"created_date": "2022-11-18T19:02:07.162097Z",
+		"question": 2
+	}
+]
+```
 
+## create answer
+create answer
+### Request
+Required fields:none
+```json
+POST api/questions/<int:question_pk>/answers/
+{
+		"answer": "yeehaw"
+}
+
+```
+### Response
+```json
+201 CREATED
+{
+	"pk": 4,
+	"answer": "yeehaw",
+	"user": "user1",
+	"created_date": "2022-11-18T20:09:11.196559Z",
+	"question": 4
+}
+```
 
 
 

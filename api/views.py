@@ -42,7 +42,6 @@ class QuestionViewSet(ModelViewSet):
         if self.request.user == serializer.instance.user:
             serializer.save()
 
-
 # answer create view
 # answer detail view 
 # next week- user needs to be able to "accept" an answer - boolean field
@@ -51,7 +50,11 @@ class QuestionViewSet(ModelViewSet):
 class AnswerListCreateView(ListCreateAPIView):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
-# This is where we are changing the perform / create function within this API view 
+
+    def get_queryset(self):
+        # this is where we are only getting the answers related to the question
+        return Answer.objects.filter(question_id=self.kwargs["question_pk"])
+    # This is where we are changing the perform / create function within this API view 
     def perform_create(self, serializer):
         # This is where we are defining what a question is, also making sure the answer is saved to the right user and question
         # 
