@@ -24,6 +24,6 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
 
-    path('api/', include(router.urls)),
-    
+    path('api/', include(router.urls)), 
+    path('api/questions/<int:question_pk>/answers/', include(router.urls)),
 ]

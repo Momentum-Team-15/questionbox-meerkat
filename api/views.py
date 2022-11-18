@@ -42,7 +42,6 @@ class QuestionViewSet(ModelViewSet):
         if self.request.user == serializer.instance.user:
             serializer.save()
 
-
 # answer create view
 # answer detail view 
 # next week- user needs to be able to "accept" an answer - boolean field
