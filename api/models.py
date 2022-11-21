@@ -17,17 +17,25 @@ class Question(models.Model):
     title = models.CharField(max_length=50)
     created_date = models.DateTimeField(auto_now_add=True)
     question = models.TextField()
+    favorite = models.ManyToManyField(User, on_delete=models.CASCADE, related_name='favorite_questions')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='questions')
 
     def __str__(self):
         return f"{self.title}"
 
-
 class Answer(models.Model):
     answer = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
+    favorite = models.ManyToManyField(User, on_delete=models.CASCADE, related_name='favorite_answers')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='answers')
 
     def __str__(self):
         return f"{self.answer}"
+
+# class Favorite(models.Model):
+#     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='favorites')
+#     user = models.ManyToManyField(User, on_delete=models.CASCADE, related_name='favorites')
+
+
+
