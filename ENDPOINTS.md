@@ -20,7 +20,8 @@ NOTE: API Root is /api/
 |POST|[api/questions/](#create-a-question)|create a question|
 |PATCH|[api/questions/{pk}/](#update-a-question)|update a question|
 |DELETE|[api/questions/{pk}/](#delete-a-question)|delete a question|
-|GET|[api/questions?search=<search_term>](#search-questions)|search questions|
+|GET|[api/questions?search=<search_term>](#search-questions)|search question title and text|
+|GET|[api/questions/{pk}/answers?search=<search_term>](#search-answers)|search answer text|
 |GET|[api/questions/<int:question_pk>/answers/](#list-answers-per-question)|list answers per question|
 |POST|[api/questions/<int:question_pk>/answers/](#create-answer)|create answer|
 |GET|[api/user/<int:user_pk>/questions/](#user-questions)|user questions|
@@ -206,7 +207,7 @@ DELETE api/questions/<pk>/
 
 ```
 ## search questions
-Search term in question title.
+Search term in question title and text.
 ### Request
 Required fields: None
 ```json
@@ -222,6 +223,30 @@ GET api/questions?search=dog
 		"created_date": "2022-11-18T03:29:04.755255Z",
 		"question": "test question 5",
 		"user": "tim"
+	}
+]
+```
+
+## search answers
+Search term in answer text.
+### Request
+Required fields: None
+```json
+GET api/questions/pk/answers?search=answer
+```
+### Response
+```json
+200 OK
+[
+	{
+		"pk": 1,
+		"answer": "test answer",
+		"user": "admin",
+		"created_date": "2022-11-22T20:30:59.793385Z",
+		"question": 1,
+		"favorite": [
+			1
+		]
 	}
 ]
 ```
