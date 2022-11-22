@@ -6,7 +6,8 @@ from django.db.models import Count
 from rest_framework.permissions import AllowAny
 from rest_framework.generics import ListCreateAPIView, get_object_or_404
 
-# Create your views here.
+
+# Create your views here
 # For endpoints
 
 
@@ -60,3 +61,13 @@ class AnswerListCreateView(ListCreateAPIView):
         # 
         question = get_object_or_404(Question, pk=self.kwargs["question_pk"])
         serializer.save(user=self.request.user, question=question)
+
+
+#This view list the questions for logged in user.
+class UserQuestions(ListAPIView):
+    queryset = Question.objects.all()
+    serializer = QuestionSerializer
+# Below will change queryset to filter only the users questions.
+    def get_queryset(self):
+        return Question.objects.filter(user_id=self.kwargs["user_pk"])
+
