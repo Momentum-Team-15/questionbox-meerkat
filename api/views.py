@@ -5,6 +5,7 @@ from rest_framework.viewsets import ModelViewSet
 from django.db.models import Count
 from rest_framework.permissions import AllowAny
 from rest_framework.generics import ListCreateAPIView, get_object_or_404, ListAPIView
+from django.db.models import Q
 
 
 # Create your views here
@@ -21,7 +22,8 @@ class QuestionViewSet(ModelViewSet):
         search_term = self.request.query_params.get("search")
         if search_term is not None:
             #Filtering question objects for anything that has search term in title.
-            results = Question.objects.filter(title__icontains=self.request.query_params.get("search"))
+            results = Question.objects.filter(Q(question__icontains=self.request.query_params.get("search"))| Q(title__icontains=self.request.query_params.get("search")))
+
         else:
             results = Question.objects.annotate(
                 #This allows total number of answers for each question in json.
@@ -53,6 +55,15 @@ class AnswerListCreateView(ListCreateAPIView):
     serializer_class = AnswerSerializer
 
     def get_queryset(self):
+        #This is how you create a search code pulled form drf docs.
+        search_term = self.request.query_params.get("search")
+        if search_term is not None:
+            #Filtering answer objects for anything that has search term in title.
+            results = Answer.objects.filter(answer__icontains=self.request.query_params.get("search"))
+            return results
+
+
+
         # this is where we are only getting the answers related to the question
         return Answer.objects.filter(question_id=self.kwargs["question_pk"])
     # This is where we are changing the perform / create function within this API view 
