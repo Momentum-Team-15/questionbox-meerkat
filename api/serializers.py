@@ -6,7 +6,7 @@ class QuestionSerializer(serializers.ModelSerializer):
      total_answers  = serializers.IntegerField(read_only=True,)
      class Meta:
         model    = Question
-        fields   = ['pk', 'title', 'created_date', 'question', 'user', 'total_answers' ]
+        fields   = ['pk', 'title', 'created_date', 'question', 'user', 'total_answers', 'favorite']
 
 
 class AnswerSerializer(serializers.ModelSerializer):
@@ -14,4 +14,5 @@ class AnswerSerializer(serializers.ModelSerializer):
     question = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         model = Answer
-        fields = ['pk', 'answer', 'user', 'created_date', 'question']
+        fields = ['pk', 'answer', 'user', 'created_date', 'question', 'favorite']
+
