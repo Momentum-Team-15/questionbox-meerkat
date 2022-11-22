@@ -23,6 +23,8 @@ NOTE: API Root is /api/
 |GET|[api/questions?search=<search_term>](#search-questions)|search questions|
 |GET|[api/questions/<int:question_pk>/answers/](#list-answers-per-question)|list answers per question|
 |POST|[api/questions/<int:question_pk>/answers/](#create-answer)|create answer|
+|GET|[api/user/<int:user_pk>/questions/](#user-questions)|user questions|
+|GET|[api/myquestions/](#)|my questions|
 ## Create a new user
 ### Request
 Required fields: username and password
@@ -268,8 +270,80 @@ POST api/questions/<int:question_pk>/answers/
 }
 ```
 
-
-
+## user questions
+Returns list of users questions.
+### Request
+Required fields: None
+```json
+GET api/user/<int:user_pk>/questions/
+```
+### Response
+```json
+200 OK
+[
+	{
+		"pk": 2,
+		"title": "cat",
+		"created_date": "2022-11-18T02:40:58.361845Z",
+		"question": "test teat test question 2",
+		"user": "tim",
+		"total_answers": 0
+	},
+	{
+		"pk": 1,
+		"title": "Dog",
+		"created_date": "2022-11-18T02:40:26.456804Z",
+		"question": "test test test question 1",
+		"user": "tim",
+		"total_answers": 0
+	},
+	{
+		"pk": 3,
+		"title": "bird",
+		"created_date": "2022-11-18T02:41:17.312426Z",
+		"question": "test question 3",
+		"user": "tim",
+		"total_answers": 0
+	}
+]
+```
+## my questions
+Returns list of all questions for logged in user.
+### Request
+Required fields: None
+```json
+GET api/myquestions/
+```
+### Response
+```json
+200 OK
+[
+	{
+		"pk": 2,
+		"title": "cat",
+		"created_date": "2022-11-18T02:40:58.361845Z",
+		"question": "test teat test question 2",
+		"user": "tim",
+		"total_answers": 0
+	},
+	{
+		"pk": 1,
+		"title": "Dog",
+		"created_date": "2022-11-18T02:40:26.456804Z",
+		"question": "test test test question 1",
+		"user": "tim",
+		"total_answers": 0
+	},
+	{
+		"pk": 3,
+		"title": "bird",
+		"created_date": "2022-11-18T02:41:17.312426Z",
+		"question": "test question 3",
+		"user": "tim",
+		"total_answers": 0
+	}
+]
+```
 
 
 
