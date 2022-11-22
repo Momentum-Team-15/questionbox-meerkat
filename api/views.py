@@ -63,7 +63,7 @@ class AnswerListCreateView(ListCreateAPIView):
         serializer.save(user=self.request.user, question=question)
 
 
-#This view list the questions for logged in user.
+#This view list the questions for one user.
 class UserQuestions(ListAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
@@ -71,10 +71,10 @@ class UserQuestions(ListAPIView):
     def get_queryset(self):
         return Question.objects.filter(user_id=self.kwargs["user_pk"])
 
-
+#this view lists the questions that belong to the logged in user
 class MyQuestions(ListAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
-# Below will change queryset to filter only a specific user questions.
+# Below will change queryset to filter only the user logged in's questions.
     def get_queryset(self):
         return Question.objects.filter(user=self.request.user)
