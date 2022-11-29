@@ -32,10 +32,3 @@ class Answer(models.Model):
 
     def __str__(self):
         return f"{self.answer}"
-
-# class Favorite(models.Model):
-#     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='favorites')
-#     user = models.ManyToManyField(User, on_delete=models.CASCADE, related_name='favorites')
-
-
-
