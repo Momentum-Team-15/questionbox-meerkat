@@ -26,6 +26,8 @@ NOTE: API Root is /api/
 |POST|[api/questions/<int:question_pk>/answers/](#create-answer)|create answer|
 |GET|[api/user/<int:user_pk>/questions/](#user-questions)|user questions|
 |GET|[api/myquestions/](#)|my questions|
+|GET|[api/user/<int:user_pk>/favoritequestions/](#list-user-favorites)|List a user's favorite questions
+
 ## Create a new user
 ### Request
 Required fields: username and password
@@ -369,9 +371,17 @@ GET api/myquestions/
 	}
 ]
 ```
-
-
-
-
-
-
+## List user favorites
+Returns list of a user's favorite questions
+### Request
+Required fields: None
+```json
+GET api/user/<int:user_pk>/favoritequestions/
+```
+### Response
+```json
+200 OK
+[
+	
+]
+```
