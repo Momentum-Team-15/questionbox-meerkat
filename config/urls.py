@@ -28,5 +28,5 @@ urlpatterns = [
     path('api/questions/<int:question_pk>/answers/', api_views.AnswerListCreateView.as_view(), name="answers"),
     path('api/user/<int:user_pk>/questions/', api_views.UserQuestions.as_view(), name="user_questions"),
     path('api/myquestions/', api_views.MyQuestions.as_view(), name="my_questions"),
+    path('api/user/<int:user_pk>/favoritequestions/', api_views.FavoriteQuestions.as_view(), name="favorite_questions")
 ]
-

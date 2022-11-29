@@ -89,3 +89,12 @@ class MyQuestions(ListAPIView):
 # Below will change queryset to filter only the user logged in's questions.
     def get_queryset(self):
         return Question.objects.filter(user=self.request.user)
+
+# List a user's favorited questions 
+class FavoriteQuestions(ListAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+# Filter queryset for logged in user's favorites
+    def get_queryset(self):
+        return Question.objects.filter(user_id=self.kwargs["user_pk"], favorites=True)
+
