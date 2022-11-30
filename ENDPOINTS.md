@@ -25,10 +25,11 @@ NOTE: API Root is /api/
 |GET|[api/questions/<int:question_pk>/answers/](#list-answers-per-question)|list answers per question|
 |POST|[api/questions/<int:question_pk>/answers/](#create-answer)|create answer|
 |GET|[api/user/<int:user_pk>/questions/](#user-questions)|user questions|
-|GET|[api/myquestions/](#)|my questions|
+|GET|[api/myquestions/](#my-questions)|list all of the user's questions|
 |GET|[api/myfavorites/](#list-favorites)|List a user's favorite questions
 |PATCH|[api/questions/<int:question_pk>/favorites/](#add-remove-favorite)|turn favorite status on/off for question
 |PATCH|[api/questions/<int:question_pk>/answers/<int:pk>/accept/](#accept-answer)|accept an answer
+|GET|[api/myanswers/](#my-answers)|list all of the user's answers
 
 ## Create a new user
 ### Request
@@ -431,27 +432,22 @@ PATCH api/questions/<int:question_pk>/favorites/
 		"title": "snakes"
 	},
 ]
-
 ```
-## accept answer
+
+## my answers
+Returns list of all questions for logged in user.
 ### Request
-
-Required fields: 
+Required fields: None
 ```json
-PATCH api/questions/<int:question_pk>/answers/<int:pk>/accept/
-{
-   	"accepted": true
-	
-
-}
+GET api/myanswers/
 ```
 ### Response
-
 ```json
 200 OK
-{
-   	"accepted": true
+[
+	{
 	
+	}
 
-}
+]
 ```
