@@ -26,6 +26,9 @@ NOTE: API Root is /api/
 |POST|[api/questions/<int:question_pk>/answers/](#create-answer)|create answer|
 |GET|[api/user/<int:user_pk>/questions/](#user-questions)|user questions|
 |GET|[api/myquestions/](#)|my questions|
+|GET|[api/myfavorites/](#list-favorites)|List a user's favorite questions
+|PATCH|[api/questions/<int:question_pk>/favorites/](#add-remove-favorite)|turn favorite status on/off for question
+
 ## Create a new user
 ### Request
 Required fields: username and password
@@ -369,9 +372,61 @@ GET api/myquestions/
 	}
 ]
 ```
+## List user favorites
+Returns list of a user's favorite questions
+### Request
+Required fields: None
+```json
+GET api/myquestions/
+```
+### Response
+```json
+200 OK
+[
+	{
+		"pk": 2,
+		"title": "cat",
+		"created_date": "2022-11-18T02:40:58.361845Z",
+		"question": "test teat test question 2",
+		"user": "tim",
+		"total_answers": 0
+	},
+	{
+		"pk": 1,
+		"title": "Dog",
+		"created_date": "2022-11-18T02:40:26.456804Z",
+		"question": "test test test question 1",
+		"user": "tim",
+		"total_answers": 0
+	},
+	{
+		"pk": 3,
+		"title": "bird",
+		"created_date": "2022-11-18T02:41:17.312426Z",
+		"question": "test question 3",
+		"user": "tim",
+		"total_answers": 0
+	}
+]
+```
+### add remove favorite
+Turns favorite status on/off for a question
+### Request
+Required fields: title
+```json
+PATCH api/questions/<int:question_pk>/favorites/
+{
+  "title": "snakes"
+  
+}
+```
+```json
 
-
-
-
-
-
+### Response
+```json
+200 OK
+[
+	{
+		"title": "snakes"
+	},
+]

@@ -17,25 +17,21 @@ class Question(models.Model):
     title = models.CharField(max_length=50)
     created_date = models.DateTimeField(auto_now_add=True)
     question = models.TextField()
-    favorites = models.ManyToManyField(User, related_name='favorite_questions')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='questions')
+    favorited_by = models.ManyToManyField(User, related_name="favorite_questions", blank=True)
 
     def __str__(self):
         return f"{self.title}"
+# create a new property showing how many times this question has been favorited
+    def favorite_count(self): 
+        return self.favorited_by.count()
+
 
 class Answer(models.Model):
     answer = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
-    favorites = models.ManyToManyField(User, related_name='favorite_answers')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='answers')
 
     def __str__(self):
         return f"{self.answer}"
-
-# class Favorite(models.Model):
-#     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='favorites')
-#     user = models.ManyToManyField(User, on_delete=models.CASCADE, related_name='favorites')
-
-
-
