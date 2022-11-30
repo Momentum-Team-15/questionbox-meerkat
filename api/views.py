@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from api.models import Question, Answer
-from api.serializers import QuestionSerializer, AnswerSerializer
+from api.serializers import QuestionSerializer, AnswerSerializer, FavoriteQuestionUpdateSerializer
 from rest_framework.viewsets import ModelViewSet
 from django.db.models import Count
 from rest_framework.permissions import AllowAny
-from rest_framework.generics import ListCreateAPIView, get_object_or_404, ListAPIView
+from rest_framework.generics import ListCreateAPIView, get_object_or_404, ListAPIView, UpdateAPIView
 from django.db.models import Q
+from rest_framework import generics
+from rest_framework import filters
+from rest_framework.response import Response
 
 
 # Create your views here
@@ -90,11 +93,29 @@ class MyQuestions(ListAPIView):
     def get_queryset(self):
         return Question.objects.filter(user=self.request.user)
 
-# List a user's favorited questions 
-class FavoriteQuestions(ListAPIView):
+
+class CreateUpdateFavoriteView(UpdateAPIView):
+    queryset = Question.objects.all()
+    serializer_class = FavoriteQuestionUpdateSerializer
+# filtering the question of a specific pk
+    def get_queryset(self):
+        queryset = self.queryset
+        return queryset.filter(pk=self.kwargs["question_pk"])[0]
+ # if it's not in favorites add it, otherwise delete it - toggle function   
+    def update(self, request, *args, **kwargs):
+        instance = self.get_queryset()
+        if self.request.user not in instance.favorited_by.all():
+            self.request.user.favorite_questions.add(instance)
+        else:
+            self.request.user.favorite_questions.remove(instance)
+        serializer = self.get_serializer(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.data)
+
+
+class FavoriteQuestionListView(ListAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
-# Filter queryset for logged in user's favorites
-    def get_queryset(self):
-        return Question.objects.filter(user_id=self.kwargs["user_pk"], favorites=True)
 
+    def get_queryset(self):
+        return self.request.user.favorite_questions.all()
