@@ -32,6 +32,7 @@ class Answer(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='answers')
-
+    accepted = models.BooleanField(default=False)
     def __str__(self):
         return f"{self.answer}"
+

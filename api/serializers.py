@@ -21,3 +21,8 @@ class FavoriteQuestionUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = ['title']
+
+class AnswerAcceptSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Answer
+        fields = ['accepted']
