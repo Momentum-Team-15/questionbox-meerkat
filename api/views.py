@@ -6,8 +6,6 @@ from django.db.models import Count
 from rest_framework.permissions import AllowAny
 from rest_framework.generics import ListCreateAPIView, get_object_or_404, ListAPIView, UpdateAPIView, RetrieveUpdateAPIView
 from django.db.models import Q
-from rest_framework import generics
-from rest_framework import filters
 from rest_framework.response import Response
 from .permissions import IsUserOrReadOnly
 
@@ -124,7 +122,7 @@ class FavoriteQuestionListView(ListAPIView):
 
 #This is the view for accepting an answer. -classy DRF RetrieveUpdateAPIView.
 class AnswerAcceptedView(RetrieveUpdateAPIView):
-    queryset = Answer.objects.all
+    queryset = Answer.objects.all()
     serializer_class = AnswerAcceptSerializer
     #Below is where we are pulling in the permission i created in permissions.py 
     #now only the user who created the question can accept the answer.
