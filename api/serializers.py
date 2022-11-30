@@ -15,9 +15,15 @@ class AnswerSerializer(serializers.ModelSerializer):
     question = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         model = Answer
-        fields = ['pk', 'answer', 'user', 'created_date', 'question']
+        fields = ['pk', 'answer', 'user', 'created_date', 'question', 'accepted']
 
 class FavoriteQuestionUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = ['title']
+
+class AnswerAcceptSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Answer
+        fields = ['accepted']
+        read_only = ['pk', 'answer', 'user', 'created_date', 'question']

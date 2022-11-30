@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from api.models import Question, Answer
-from api.serializers import QuestionSerializer, AnswerSerializer, FavoriteQuestionUpdateSerializer
+from api.serializers import QuestionSerializer, AnswerSerializer, FavoriteQuestionUpdateSerializer, AnswerAcceptSerializer
 from rest_framework.viewsets import ModelViewSet
 from django.db.models import Count
 from rest_framework.permissions import AllowAny
-from rest_framework.generics import ListCreateAPIView, get_object_or_404, ListAPIView, UpdateAPIView
+from rest_framework.generics import ListCreateAPIView, get_object_or_404, ListAPIView, UpdateAPIView, RetrieveUpdateAPIView
 from django.db.models import Q
-from rest_framework import generics
-from rest_framework import filters
 from rest_framework.response import Response
+from .permissions import IsUserOrReadOnly
+
 
 
 # Create your views here
@@ -119,3 +119,12 @@ class FavoriteQuestionListView(ListAPIView):
 
     def get_queryset(self):
         return self.request.user.favorite_questions.all()
+
+#This is the view for accepting an answer. -classy DRF RetrieveUpdateAPIView.
+class AnswerAcceptedView(RetrieveUpdateAPIView):
+    queryset = Answer.objects.all()
+    serializer_class = AnswerAcceptSerializer
+    #Below is where we are pulling in the permission i created in permissions.py 
+    #now only the user who created the question can accept the answer.
+    permission_classes = [IsUserOrReadOnly]
+

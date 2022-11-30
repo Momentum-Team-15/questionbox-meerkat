@@ -28,6 +28,7 @@ NOTE: API Root is /api/
 |GET|[api/myquestions/](#)|my questions|
 |GET|[api/myfavorites/](#list-favorites)|List a user's favorite questions
 |PATCH|[api/questions/<int:question_pk>/favorites/](#add-remove-favorite)|turn favorite status on/off for question
+|PATCH|[api/questions/<int:question_pk>/answers/<int:pk>/accept/](#accept-answer)|accept an answer
 
 ## Create a new user
 ### Request
@@ -430,3 +431,27 @@ PATCH api/questions/<int:question_pk>/favorites/
 		"title": "snakes"
 	},
 ]
+
+```
+## accept answer
+### Request
+
+Required fields: 
+```json
+PATCH api/questions/<int:question_pk>/answers/<int:pk>/accept/
+{
+   	"accepted": true
+	
+
+}
+```
+### Response
+
+```json
+200 OK
+{
+   	"accepted": true
+	
+
+}
+```
