@@ -2,7 +2,7 @@ from rest_framework import permissions
 # From DRF tutorial. This will create special permission for accepting an answer.
 #only the creator of the question will be able to accept the answer.
 
-class IsUserOrReadOnly(permissions.BasePermissions):
+class IsUserOrReadOnly(permissions.BasePermission):
     message = "Only the question creator can accept the answer."
 
     def has_permission(self, request, view):
