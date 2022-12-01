@@ -128,3 +128,10 @@ class AnswerAcceptedView(RetrieveUpdateAPIView):
     #now only the user who created the question can accept the answer.
     permission_classes = [IsUserOrReadOnly]
 
+
+class MyAnswers(ListAPIView):
+    queryset = Answer.objects.all()
+    serializer_class = AnswerSerializer
+
+    def get_queryset(self):
+        return Answer.objects.filter(user=self.request.user)
