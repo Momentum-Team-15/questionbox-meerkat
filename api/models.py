@@ -5,6 +5,7 @@ from django.db.models.fields import DateTimeField
 
 
 class User(AbstractUser):
+    profile_pic = models.ImageField(null=True, blank=True)
     pet_amount = models.PositiveIntegerField(blank=True, null=True)
     pet_types = models.CharField(max_length=50, blank=True)
     bio = models.TextField(blank=True)
