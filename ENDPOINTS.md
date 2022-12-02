@@ -379,7 +379,7 @@ Returns list of a user's favorite questions
 ### Request
 Required fields: None
 ```json
-GET api/myquestions/
+GET api/myfavorites/
 ```
 ### Response
 ```json
